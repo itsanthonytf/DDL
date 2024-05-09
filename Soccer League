@@ -1,0 +1,41 @@
+CREATE TABLE Teams (
+    team_id INT PRIMARY KEY,
+    team_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Players (
+    player_id INT PRIMARY KEY,
+    player_name VARCHAR(50) NOT NULL,
+    team_id INT,
+    FOREIGN KEY (team_id) REFERENCES Teams(team_id)
+);
+
+CREATE TABLE Goals (
+    goal_id INT PRIMARY KEY,
+    player_id INT,
+    game_id INT,
+    goals_scored INT,
+    FOREIGN KEY (player_id) REFERENCES Players(player_id)
+);
+
+CREATE TABLE Referees (
+    referee_id INT PRIMARY KEY,
+    referee_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Matches (
+    match_id INT PRIMARY KEY,
+    team1_id INT,
+    team2_id INT,
+    match_date DATE,
+    FOREIGN KEY (team1_id) REFERENCES Teams(team_id),
+    FOREIGN KEY (team2_id) REFERENCES Teams(team_id)
+);
+
+CREATE TABLE Seasons (
+    season_id INT PRIMARY KEY,
+    start_date DATE,
+    end_date DATE
+);
+
+-- Standings can be calculated dynamically based on match results
